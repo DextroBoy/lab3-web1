@@ -4,7 +4,7 @@ export interface Student {
   email: string;
   phone: string;
   address: string;
-  birthdate: Date;
+  birthdate: Date | string;
   semester: number;
   status: boolean;
 }
