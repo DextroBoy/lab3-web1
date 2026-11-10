@@ -1,0 +1,44 @@
+<div class="table-responsive">
+  <table class="table table-hover table-bordered align-middle">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Créditos</th>
+        <th scope="col">Semestre</th>
+        <th scope="col">Estado</th>
+        <th scope="col" class="text-center">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (course of courses; track course.id) {
+        <tr>
+          <td>{{ course.id }}</td>
+          <td class="fw-semibold">{{ course.name }}</td>
+          <td>{{ course.description }}</td>
+          <td><span class="badge text-bg-info">{{ course.credits }}</span></td>
+          <td><span class="badge text-bg-info">{{ course.semester }}°</span></td>
+          <td>
+            @if (course.status) {
+              <span class="badge text-bg-success">Activo</span>
+            } @else {
+              <span class="badge text-bg-danger">Inactivo</span>
+            }
+          </td>
+          <td>
+            <div class="d-flex justify-content-center gap-2">
+              <app-button [config]="detailButton" (onClick)="emitAction(course.id, 'detail')" />
+              <app-button [config]="editButton" (onClick)="emitAction(course.id, 'edit')" />
+              <app-button [config]="deleteButton" (onClick)="emitAction(course.id, 'delete')" />
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7" class="text-center py-4 text-muted">No hay cursos registrados.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

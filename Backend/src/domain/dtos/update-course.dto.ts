@@ -23,7 +23,7 @@ export class UpdateCourseDTO {
         if(!description) return ["Missing description"];
         if(!credits) return ["Missing credits"];
         if(!semester) return ["Missing semester"];
-        if(!status) return ["Missing status"];
+        if(typeof status !== "boolean") return ["Missing status"];
 
         if(name && name.length > 100)
             return ["name is too large, max length is 100 characters"];

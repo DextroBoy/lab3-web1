@@ -1,0 +1,53 @@
+<app-back />
+<div class="container-fluid py-4">
+  <div class="mb-4">
+    <h3 class="fw-bold mb-1">Registrar curso</h3>
+    <p class="text-muted mb-0">Completa la información para registrar un nuevo curso.</p>
+  </div>
+  <div class="card border">
+    <div class="card-header bg-white py-3"><h5 class="mb-0"><i class="bi bi-book me-2"></i>Información del curso</h5></div>
+    <div class="card-body">
+      <form [formGroup]="courseForm" (ngSubmit)="createCourse()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="name" class="form-label">Nombre *</label>
+            <input id="name" class="form-control" formControlName="name" placeholder="Nombre del curso">
+            @if (courseForm.controls.name.touched && courseForm.controls.name.invalid) {
+              <small class="text-danger">El nombre es obligatorio y debe tener máximo 100 caracteres.</small>
+            }
+          </div>
+          <div class="col-md-6">
+            <label for="description" class="form-label">Descripción *</label>
+            <input id="description" class="form-control" formControlName="description" placeholder="Descripción del curso">
+            @if (courseForm.controls.description.touched && courseForm.controls.description.invalid) {
+              <small class="text-danger">La descripción es obligatoria.</small>
+            }
+          </div>
+          <div class="col-md-6">
+            <label for="credits" class="form-label">Créditos *</label>
+            <select id="credits" class="form-select" formControlName="credits">
+              @for (credit of credits; track credit) { <option [value]="credit">{{ credit }}</option> }
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="semester" class="form-label">Semestre *</label>
+            <select id="semester" class="form-select" formControlName="semester">
+              @for (semester of semesters; track semester) { <option [value]="semester">Semestre {{ semester }}</option> }
+            </select>
+          </div>
+          <div class="col-12">
+            <div class="form-check form-switch mt-2">
+              <input class="form-check-input" type="checkbox" id="status" formControlName="status">
+              <label class="form-check-label" for="status">Curso activo</label>
+            </div>
+          </div>
+        </div>
+        <hr class="my-4">
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-outline-secondary" (click)="goToList()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid"><i class="bi bi-save me-2"></i>Registrar curso</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
